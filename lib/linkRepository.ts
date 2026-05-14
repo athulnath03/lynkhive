@@ -1,70 +1,83 @@
-/**
- * lib/linkRepository.ts
- *
- * Repository pattern: all CRUD operations live here.
- * Swap `mockRepository` for `supabaseRepository` in lib/db.ts
- * without touching any component or hook.
- */
-
+import { createClient } from "@supabase/supabase-js";
 import { DevLink, LinkRepository, NewLinkPayload } from "@/types";
-import { mockLinks } from "@/data/links";
 import { nanoid } from "nanoid";
+import fs from "fs";
+import path from "path";
 
-// In-memory store (simulates a DB for the mock layer)
-let store: DevLink[] = [...mockLinks];
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+const filePath = path.resolve("./data/links.json");
+
+function ensureFile() {
+  const dir = path.dirname(filePath);
+
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+
+  if (!fs.existsSync(filePath)) {
+    fs.writeFileSync(filePath, "[]", "utf-8");
+  }
+}
+
+function read(): DevLink[] {
+  ensureFile();
+  return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+}
+
+function write(data: DevLink[]) {
+  ensureFile();
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+}
 
 export const mockRepository: LinkRepository = {
   async getAll(): Promise<DevLink[]> {
-    // Simulate network latency
-    await new Promise((r) => setTimeout(r, 120));
-    return [...store].sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-  },
+  const { data: userData } = await supabase.auth.getUser();
+  const user = userData.user;
 
-  async getById(id: string): Promise<DevLink | null> {
-    return store.find((l) => l.id === id) ?? null;
+  if (!user) return [];
+
+  const { data, error } = await supabase
+    .from("links")
+    .select("*")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+
+  return data || [];
+},
+
+  async getById(id: string) {
+    return read().find((l) => l.id === id) ?? null;
   },
 
   async create(payload: NewLinkPayload): Promise<DevLink> {
-    const newLink: DevLink = {
-      ...payload,
-      id: nanoid(),
-      createdAt: new Date().toISOString(),
-    };
-    store = [newLink, ...store];
-    return newLink;
-  },
+  const { data: userData } = await supabase.auth.getUser();
+  const user = userData.user;
 
-  async delete(id: string): Promise<void> {
-    store = store.filter((l) => l.id !== id);
+  if (!user) throw new Error("User not authenticated");
+
+  const { data, error } = await supabase
+    .from("links")
+    .insert([
+      {
+        ...payload,
+        user_id: user.id,
+      },
+    ])
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
+},
+
+  async delete(id: string) {
+    write(read().filter((l) => l.id !== id));
   },
 };
-
-// ─── Supabase stub (uncomment & fill when ready) ────────────────────────────
-//
-// import { createClient } from "@supabase/supabase-js";
-// const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
-//
-// export const supabaseRepository: LinkRepository = {
-//   async getAll() {
-//     const { data, error } = await supabase.from("links").select("*").order("created_at", { ascending: false });
-//     if (error) throw error;
-//     return data;
-//   },
-//   async getById(id) {
-//     const { data, error } = await supabase.from("links").select("*").eq("id", id).single();
-//     if (error) throw error;
-//     return data;
-//   },
-//   async create(payload) {
-//     const { data, error } = await supabase.from("links").insert([payload]).select().single();
-//     if (error) throw error;
-//     return data;
-//   },
-//   async delete(id) {
-//     const { error } = await supabase.from("links").delete().eq("id", id);
-//     if (error) throw error;
-//   },
-// };
