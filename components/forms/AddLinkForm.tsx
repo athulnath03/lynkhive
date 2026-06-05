@@ -36,8 +36,7 @@ export function AddLinkForm({ onAdd, onClose }: AddLinkFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors]             = useState<Record<string, string>>({});
   const urlRef       = useRef<HTMLInputElement>(null);
-  const analyzeTimer = useRef<ReturnType<typeof setTimeout>>();
-
+  const analyzeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => { urlRef.current?.focus(); }, []);
   useEffect(() => {
     const h = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
