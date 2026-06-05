@@ -98,7 +98,9 @@ export function AddLinkForm({ onAdd, onClose }: AddLinkFormProps) {
   const handleUrlChange = (val: string) => {
     setUrl(val);
     setErrors(e => ({ ...e, url: "" }));
-    clearTimeout(analyzeTimer.current);
+    if (analyzeTimer.current) {
+      clearTimeout(analyzeTimer.current);
+    }
     if (val.length > 8) {
       analyzeTimer.current = setTimeout(() => analyze(val), 800);
     }
