@@ -1,0 +1,76 @@
+{
+  "links": [
+    {
+      "id": "a1b2c3d4-0001",
+      "title": "Next.js App Router Docs",
+      "url": "https://nextjs.org/docs/app",
+      "description": "Official documentation for the Next.js App Router — routing, layouts, server components, and streaming.",
+      "category": "docs",
+      "tags": ["nextjs", "react", "routing"],
+      "createdAt": "2024-11-01T10:00:00Z"
+    },
+    {
+      "id": "a1b2c3d4-0002",
+      "title": "Tailwind CSS",
+      "url": "https://tailwindcss.com",
+      "description": "A utility-first CSS framework for building modern interfaces without leaving your HTML.",
+      "category": "tool",
+      "tags": ["css", "design-system", "tailwind"],
+      "createdAt": "2024-11-03T08:30:00Z"
+    },
+    {
+      "id": "a1b2c3d4-0003",
+      "title": "shadcn/ui",
+      "url": "https://ui.shadcn.com",
+      "description": "Beautifully designed components built with Radix UI and Tailwind CSS. Copy-paste into your project.",
+      "category": "library",
+      "tags": ["ui", "react", "radix", "components"],
+      "createdAt": "2024-11-05T14:00:00Z"
+    },
+    {
+      "id": "a1b2c3d4-0004",
+      "title": "Supabase",
+      "url": "https://supabase.com",
+      "description": "Open source Firebase alternative. Postgres database, Auth, realtime, storage, and Edge Functions.",
+      "category": "tool",
+      "tags": ["backend", "postgres", "auth", "database"],
+      "createdAt": "2024-11-06T09:00:00Z"
+    },
+    {
+      "id": "a1b2c3d4-0005",
+      "title": "t3-oss/create-t3-app",
+      "url": "https://github.com/t3-oss/create-t3-app",
+      "description": "The best way to start a full-stack, typesafe Next.js app. Includes tRPC, Prisma, and Tailwind.",
+      "category": "github",
+      "tags": ["nextjs", "typescript", "trpc", "starter"],
+      "createdAt": "2024-11-10T12:00:00Z"
+    },
+    {
+      "id": "a1b2c3d4-0006",
+      "title": "Zod — TypeScript Schema Validation",
+      "url": "https://zod.dev",
+      "description": "TypeScript-first schema declaration and validation. Parse JSON, validate forms, type API responses.",
+      "category": "library",
+      "tags": ["typescript", "validation", "forms"],
+      "createdAt": "2024-11-13T08:00:00Z"
+    },
+    {
+      "id": "a1b2c3d4-0007",
+      "title": "Excalidraw",
+      "url": "https://excalidraw.com",
+      "description": "Virtual whiteboard for sketching hand-drawn-like diagrams. Perfect for system design and architecture.",
+      "category": "tool",
+      "tags": ["design", "diagrams", "whiteboard"],
+      "createdAt": "2024-11-14T10:00:00Z"
+    },
+    {
+      "id": "a1b2c3d4-0008",
+      "title": "Vercel AI SDK",
+      "url": "https://sdk.vercel.ai",
+      "description": "The TypeScript toolkit for building AI-powered products with React and Next.js. Streaming-first.",
+      "category": "library",
+      "tags": ["ai", "typescript", "streaming", "nextjs"],
+      "createdAt": "2024-11-09T10:00:00Z"
+    }
+  ]
+}
