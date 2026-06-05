@@ -6,7 +6,7 @@ import { CreateLinkPayload, LinkCategory, UrlMeta } from "@/types";
 import { CATEGORIES, CATEGORY_VALUES } from "@/lib/categories";
 
 interface AddLinkFormProps {
-  onAdd: (payload: CreateLinkPayload) => Promise<void>;
+onAdd: (payload: CreateLinkPayload) => Promise<Link>
   onClose: () => void;
 }
 
