@@ -50,17 +50,17 @@ import type {
 
 function toLink(row: DbLink): Link {
   return {
-    id:          row.id,
-    title:       row.title,
-    url:         row.url,
+    id: row.id,
+    title: row.title,
+    url: row.url,
     description: row.description ?? "",
-    category:    row.category as LinkCategory,
-    tags:        row.tags ?? [],
-    createdAt:   row.created_at,
-    updatedAt:   row.updated_at,
-    userId:      row.user_id,
-    isPublic:    row.is_public,
-    metadata:    row.metadata as Record<string, unknown> | null,
+    category: row.category as LinkCategory,
+    tags: row.tags ?? [],
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    userId: row.user_id,
+    isPublic: row.is_public,
+    metadata: row.metadata ?? null,
   };
 }
 
