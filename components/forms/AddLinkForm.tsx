@@ -1,5 +1,5 @@
 "use client";
-
+import type { Link } from "@/types";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { X, Plus, Link2, Loader2, CheckCircle, AlertCircle, Tag } from "lucide-react";
 import { CreateLinkPayload, LinkCategory, UrlMeta } from "@/types";
