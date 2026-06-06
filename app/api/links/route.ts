@@ -10,7 +10,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { storage, NotFoundError, StorageError } from "@/lib/storage";
+import { storage, NotFoundError } from "@/lib/storage";
 import { CreateLinkPayload, UpdateLinkPayload } from "@/types";
 
 // ── GET /api/links ─────────────────────────────────────────────────────────
